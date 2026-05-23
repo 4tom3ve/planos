@@ -79,8 +79,8 @@ html,body{height:100%;background:var(--bg);font-family:-apple-system,BlinkMacSys
 .plano-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;}
 .plano-name{font-size:15px;font-weight:700;}
 .plano-desc{font-size:12px;color:var(--muted);margin:5px 0 10px;}
-.plano-price .valor{font-size:20px;font-weight:800;color:var(--ig-pink);}
-.plano-price .periodo{font-size:10.5px;color:var(--muted);display:block;text-align:right;}
+.consulta-badge{display:inline-flex;align-items:center;gap:5px;background:#f0fff4;border:1px solid #25D366;color:#1a9e4e;font-size:10.5px;font-weight:700;padding:3px 10px;border-radius:20px;}
+.consulta-badge svg{width:12px;height:12px;fill:#25D366;flex-shrink:0;}
 .entrega-list{list-style:none;}
 .entrega-list li{font-size:12px;color:var(--text);display:flex;align-items:center;gap:7px;padding:3px 0;}
 .entrega-list li i{color:var(--ig-pink);font-size:14px;flex-shrink:0;}
@@ -97,7 +97,6 @@ html,body{height:100%;background:var(--bg);font-family:-apple-system,BlinkMacSys
 .adicional-icon{font-size:19px;color:var(--ig-purple);}
 .adicional-label{font-size:13px;font-weight:600;}
 .adicional-sub{font-size:11px;color:var(--muted);}
-.adicional-preco{font-size:13px;font-weight:700;color:var(--ig-pink);white-space:nowrap;}
 .toggle{width:42px;height:23px;border-radius:12px;background:var(--border);position:relative;transition:background .2s;cursor:pointer;flex-shrink:0;}
 .toggle.on{background:var(--ig-pink);}
 .toggle::after{content:'';width:19px;height:19px;border-radius:50%;background:#fff;position:absolute;top:2px;left:2px;transition:left .2s;box-shadow:0 1px 3px rgba(0,0,0,.2);}
@@ -107,7 +106,7 @@ html,body{height:100%;background:var(--bg);font-family:-apple-system,BlinkMacSys
 .bottom-bar{position:sticky;bottom:0;background:var(--surface);border-top:1px solid var(--border);padding:12px 16px 16px;z-index:20;}
 .resumo-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
 .resumo-label{font-size:12.5px;color:var(--muted);}
-.resumo-total{font-size:19px;font-weight:800;color:var(--text);}
+.resumo-hint{font-size:11px;color:#1a9e4e;font-weight:600;}
 .btn-wpp{width:100%;background:#25D366;color:#fff;border:none;border-radius:11px;padding:14px;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;transition:opacity .2s,transform .15s;}
 .btn-wpp:hover{opacity:.93;}
 .btn-wpp:active{transform:scale(.98);}
@@ -162,40 +161,36 @@ html,body{height:100%;background:var(--bg);font-family:-apple-system,BlinkMacSys
 
   <!-- STORIES -->
   <div class="stories-row">
-    <!-- Portfólio com foto -->
     <div class="story-item" onclick="abrirModal('fotos')">
       <div class="story-ring">
         <div class="story-avatar"><img src="https://res.cloudinary.com/dcbarseus/image/upload/v1779139594/90d6deb7-1ca8-40af-8f33-fc969d501843_a4j5bg.png" alt="Portfólio"/></div>
       </div>
       <span class="story-label">Portfólio</span>
     </div>
-    <!-- Reels UGC -->
     <div class="story-item" onclick="abrirModal('reels')">
       <div class="story-ring">
         <div class="story-avatar" style="background:#1a1a2e;">🎬</div>
       </div>
       <span class="story-label">Reels UGC</span>
     </div>
-    <!-- Fotos -->
     <div class="story-item" onclick="abrirModal('fotos')">
       <div class="story-ring">
         <div class="story-avatar" style="background:#fff0f8;">📸</div>
       </div>
       <span class="story-label">Fotos</span>
     </div>
-    <!-- O Método UGC → Hotmart -->
     <div class="story-item" onclick="window.open('https://pay.hotmart.com/B105879511Y?sck=HOTMART_PRODUCT_PAGE&off=9yrzldqn&hotfeature=32','_blank')">
       <div class="story-ring seen">
         <div class="story-avatar" style="background:#fff8e1;">✨</div>
       </div>
       <span class="story-label">O Método UGC</span>
     </div>
-    <!-- Depoimentos → Instagram -->
+    <!-- ALTERADO: Depoimentos → Instagram -->
     <div class="story-item" onclick="window.open('https://instagram.com/4tom3ve','_blank')">
       <div class="story-ring seen">
-        <div class="story-avatar" style="background:#f3e8ff;">💬</div>
+        <div class="story-avatar" style="background:#f3e8ff;">📱</div>
       </div>
-      <span class="story-label">Depoimentos</span>
+      <span class="story-label">Instagram</span>
     </div>
   </div>
 
@@ -240,10 +235,10 @@ html,body{height:100%;background:var(--bg);font-family:-apple-system,BlinkMacSys
             <div class="plano-desc">Ideal pra testar o conteúdo</div>
           </div>
           <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;">
-            <div class="plano-price">
-              <span class="valor">R$&nbsp;800</span>
-              <span class="periodo">por entrega</span>
-            </div>
+            <span class="consulta-badge">
+              <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Consultar
+            </span>
             <div class="check-circle"><i class="ti ti-check"></i></div>
           </div>
         </div>
@@ -262,10 +257,10 @@ html,body{height:100%;background:var(--bg);font-family:-apple-system,BlinkMacSys
             <div class="plano-desc">O preferido das marcas 🏆</div>
           </div>
           <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;">
-            <div class="plano-price">
-              <span class="valor">R$&nbsp;2.200</span>
-              <span class="periodo">pacote completo</span>
-            </div>
+            <span class="consulta-badge">
+              <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Consultar
+            </span>
             <div class="check-circle"><i class="ti ti-check"></i></div>
           </div>
         </div>
@@ -285,10 +280,10 @@ html,body{height:100%;background:var(--bg);font-family:-apple-system,BlinkMacSys
             <div class="plano-desc">Consistência que converte</div>
           </div>
           <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;">
-            <div class="plano-price">
-              <span class="valor">R$&nbsp;3.800</span>
-              <span class="periodo">/mês</span>
-            </div>
+            <span class="consulta-badge">
+              <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Consultar
+            </span>
             <div class="check-circle"><i class="ti ti-check"></i></div>
           </div>
         </div>
@@ -310,7 +305,7 @@ html,body{height:100%;background:var(--bg);font-family:-apple-system,BlinkMacSys
     <div class="section-label">Adicionais (opcional)</div>
     <div class="adicionais-section" style="padding-top:10px;">
 
-      <div class="adicional-row" id="add-legenda" onclick="toggleAdicional('legenda',150)">
+      <div class="adicional-row" id="add-legenda" onclick="toggleAdicional('legenda')">
         <div class="adicional-info">
           <i class="ti ti-pencil adicional-icon"></i>
           <div>
@@ -319,12 +314,11 @@ html,body{height:100%;background:var(--bg);font-family:-apple-system,BlinkMacSys
           </div>
         </div>
         <div style="display:flex;align-items:center;gap:10px;">
-          <span class="adicional-preco">+R$&nbsp;150</span>
           <div class="toggle" id="toggle-legenda"></div>
         </div>
       </div>
 
-      <div class="adicional-row" id="add-versao" onclick="toggleAdicional('versao',300)">
+      <div class="adicional-row" id="add-versao" onclick="toggleAdicional('versao')">
         <div class="adicional-info">
           <i class="ti ti-ad-2 adicional-icon"></i>
           <div>
@@ -333,12 +327,11 @@ html,body{height:100%;background:var(--bg);font-family:-apple-system,BlinkMacSys
           </div>
         </div>
         <div style="display:flex;align-items:center;gap:10px;">
-          <span class="adicional-preco">+R$&nbsp;300</span>
           <div class="toggle" id="toggle-versao"></div>
         </div>
       </div>
 
-      <div class="adicional-row" id="add-urgente" onclick="toggleAdicional('urgente',400)">
+      <div class="adicional-row" id="add-urgente" onclick="toggleAdicional('urgente')">
         <div class="adicional-info">
           <i class="ti ti-bolt adicional-icon"></i>
           <div>
@@ -347,7 +340,6 @@ html,body{height:100%;background:var(--bg);font-family:-apple-system,BlinkMacSys
           </div>
         </div>
         <div style="display:flex;align-items:center;gap:10px;">
-          <span class="adicional-preco">+R$&nbsp;400</span>
           <div class="toggle" id="toggle-urgente"></div>
         </div>
       </div>
@@ -361,7 +353,7 @@ html,body{height:100%;background:var(--bg);font-family:-apple-system,BlinkMacSys
   <div class="bottom-bar">
     <div class="resumo-row">
       <span class="resumo-label" id="resumo-plano-label">Nenhum plano selecionado</span>
-      <span class="resumo-total" id="resumo-total">R$&nbsp;0</span>
+      <span class="resumo-hint" id="resumo-hint"></span>
     </div>
     <button class="btn-wpp" id="btn-wpp" onclick="enviarWpp()" disabled>
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -466,7 +458,6 @@ function atualizarSlider(type) {
     d.classList.toggle('active', i === idx);
   });
   document.getElementById('counter-' + type).textContent = (idx + 1) + ' / ' + total;
-  // pause other videos
   if (type === 'reels') {
     document.querySelectorAll('#slider-reels-track video').forEach((v, i) => {
       if (i !== idx) v.pause();
@@ -516,14 +507,12 @@ function fecharModal(type) {
   }
 }
 
-// close on overlay click
 ['fotos','reels'].forEach(type => {
   document.getElementById('modal-' + type).addEventListener('click', function(e) {
     if (e.target === this) fecharModal(type);
   });
 });
 
-// keyboard
 document.addEventListener('keydown', e => {
   ['fotos','reels'].forEach(type => {
     const m = document.getElementById('modal-' + type);
@@ -567,17 +556,16 @@ function irWppSino() {
 
 // ---- PLANOS ----
 const planos = {
-  starter:{ nome:'Starter', valor:800, descricao:'Plano Starter — 1 Vídeo UGC' },
-  growth: { nome:'Growth',  valor:2200, descricao:'Plano Growth — 3 Vídeos + 5 Fotos + 3 Stories' },
-  mensal: { nome:'Mensal Retainer', valor:3800, descricao:'Plano Mensal — 8 Vídeos + 12 Fotos + Stories + Ads' }
+  starter:{ nome:'Starter', descricao:'Plano Starter — 1 Vídeo UGC' },
+  growth: { nome:'Growth',  descricao:'Plano Growth — 3 Vídeos + 5 Fotos + 3 Stories' },
+  mensal: { nome:'Mensal Retainer', descricao:'Plano Mensal — 8 Vídeos + 12 Fotos + Stories + Ads' }
 };
 let planoSelecionado = null;
 const adicionais = { legenda:false, versao:false, urgente:false };
-const adicionaisValor = { legenda:150, versao:300, urgente:400 };
 const adicionaisNome = {
-  legenda:'Legenda para post (+R$150)',
-  versao:'Versão para Ads (+R$300)',
-  urgente:'Entrega expressa (+R$400)'
+  legenda:'Legenda para post',
+  versao:'Versão para Ads',
+  urgente:'Entrega expressa (48h)'
 };
 
 function selecionarPlano(id) {
@@ -587,7 +575,7 @@ function selecionarPlano(id) {
   atualizarResumo();
 }
 
-function toggleAdicional(key, valor) {
+function toggleAdicional(key) {
   adicionais[key] = !adicionais[key];
   document.getElementById('add-' + key).classList.toggle('selected', adicionais[key]);
   document.getElementById('toggle-' + key).classList.toggle('on', adicionais[key]);
@@ -596,32 +584,28 @@ function toggleAdicional(key, valor) {
 
 function atualizarResumo() {
   const btn = document.getElementById('btn-wpp');
-  const totalEl = document.getElementById('resumo-total');
+  const hintEl = document.getElementById('resumo-hint');
   const labelEl = document.getElementById('resumo-plano-label');
   const wppIcon = `<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width:21px;height:21px;fill:#fff;flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>`;
   if (!planoSelecionado) {
     btn.disabled = true;
     btn.innerHTML = wppIcon + ' Selecione um plano';
-    totalEl.textContent = 'R$\u00a00';
+    hintEl.textContent = '';
     labelEl.textContent = 'Nenhum plano selecionado';
     return;
   }
   const p = planos[planoSelecionado];
   const extras = Object.keys(adicionais).filter(k => adicionais[k]);
-  let total = p.valor;
-  extras.forEach(k => total += adicionaisValor[k]);
   labelEl.textContent = p.nome + (extras.length ? ' + ' + extras.length + ' adicional(is)' : '');
-  totalEl.textContent = 'R$\u00a0' + total.toLocaleString('pt-BR');
+  hintEl.textContent = '💬 Valor consultado no WhatsApp';
   btn.disabled = false;
-  btn.innerHTML = wppIcon + ' Fechar via WhatsApp';
+  btn.innerHTML = wppIcon + ' Consultar valor via WhatsApp';
 }
 
 function enviarWpp() {
   if (!planoSelecionado) return;
   const p = planos[planoSelecionado];
   const extras = Object.keys(adicionais).filter(k => adicionais[k]);
-  let total = p.valor;
-  extras.forEach(k => total += adicionaisValor[k]);
   let msg = '✨ *Olá Eve! Quero fechar uma parceria UGC!*\n\n';
   msg += '📦 *Plano escolhido:* ' + p.nome + '\n';
   msg += '📝 ' + p.descricao + '\n';
@@ -629,10 +613,10 @@ function enviarWpp() {
     msg += '\n➕ *Adicionais selecionados:*\n';
     extras.forEach(k => { msg += '  • ' + adicionaisNome[k] + '\n'; });
   }
-  msg += '\n💰 *Total: R$ ' + total.toLocaleString('pt-BR') + '*\n\n';
+  msg += '\n💰 *Gostaria de saber o valor deste pacote.*\n\n';
   msg += 'Estou pronta para fechar! Pode me passar os próximos passos? 🙏🔥';
   window.open('https://wa.me/5583996483930?text=' + encodeURIComponent(msg), '_blank');
 }
 </script>
 </body>
-                                                                   </html>
+</html>
